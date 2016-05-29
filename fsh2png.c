@@ -20,7 +20,6 @@ typedef char _TCHAR;
 #	define _T(s)        s
 #	define _tmain       main
 
-#	define _fputts      fputs
 #	define _ftprintf    fprintf
 #	define _tfopen      fopen
 #	define _tperror     perror
@@ -53,7 +52,7 @@ struct _fsh_file
 int _enomem(_TCHAR *progname)
 {
 	/* MinGW says: _wcserror requires __MSVCRT_VERSION__ >= 0x0700 */
-	_ftprintf(stderr, _T("%s: %s"), progname, _tcserror(ENOMEM));
+	_ftprintf(stderr, _T("%s: %s\n"), progname, _tcserror(ENOMEM));
 	return EXIT_FAILURE;
 }
 
@@ -126,7 +125,7 @@ int _tmain(int argc, _TCHAR **argv)
 				if(fsh_read < 0)
 					_tperror(fsh_name);
 				else
-					_ftprintf(stderr, _T("%s: Too small"), fsh_name);
+					_ftprintf(stderr, _T("%s: Too small\n"), fsh_name);
 				fclose(fsh_stream);
 				continue;
 			}
