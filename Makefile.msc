@@ -1,0 +1,17 @@
+!IFDEF UNICODE
+OPT_UNICODE=/D_UNICODE
+!ENDIF
+
+!IFDEF PNG_USE_DLL
+OPT_LIBPNG=/DPNG_USE_DLL libpng16.lib
+!ELSE
+OPT_LIBPNG=libpng.lib zlib.lib
+!endif
+
+all: fsh2png.exe
+
+fsh2png.exe: fsh2png.c
+	CL /O2 /MD $(OPT_UNICODE) $(OPT_LIBPNG) $** /Fe$@
+
+clean:
+	DEL fsh2png.exe
