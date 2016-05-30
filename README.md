@@ -23,6 +23,7 @@ Building on Unix-like systems (Linux, OS X, Cygwin)
 	$ make
 
 Building on Windows (MinGW-w64)
+-------------------------------
 
 	$ mingw32-make -f Makefile.mingw UNICODE=1
 
