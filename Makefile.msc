@@ -2,16 +2,18 @@
 OPT_UNICODE=/D_UNICODE
 !ENDIF
 
-!IFDEF PNG_USE_DLL
-OPT_LIBPNG=/DPNG_USE_DLL libpng16.lib
-!ELSE
-OPT_LIBPNG=libpng.lib zlib.lib
-!endif
+# zlib.lib uses /MD, so we must as well.
+CFLAGS=/O2 /MD $(OPT_UNICODE)
 
 all: fsh2png.exe
 
+static: fsh2png-static.exe
+
 fsh2png.exe: fsh2png.c
-	CL /O2 /MD $(OPT_UNICODE) $(OPT_LIBPNG) $** /Fe$@
+	CL $(CFLAGS) /DPNG_USE_DLL libpng16.lib $** /Fe$@
+
+fsh2png-static.exe: fsh2png.c
+	CL $(CFLAGS) $** libpng.lib zlib.lib /Fe$@
 
 clean:
-	DEL fsh2png.exe
+	DEL fsh2png.exe fsh2png-static.exe

@@ -17,8 +17,8 @@ Synopsis
 Each fish specified on the command line with be converted to a PNG file in the
 same directory as the .FSH file.
 
-Building on Unix-like systems (Linux, OS X, Cygwin)
----------------------------------------------------
+Building on POSIX-compatible systems (Linux, OS X, Cygwin)
+----------------------------------------------------------
 
 	$ make
 
@@ -32,21 +32,35 @@ Building on Windows (Microsoft Visual Studio)
 
 From a Visual Studio developer command prompt:
 
-### Use libpng16.dll ###
-	CD (path to fsh2png source)
-	SET INCLUDE=%INCLUDE%;(path to libpng on your system)
+	SET INCLUDE=%INCLUDE%;(path to png.h on your system)
 	SET LIB=%LIB%;(path to libpng16.lib on your system)
-	NMAKE /F Makefile.msc UNICODE=1 PNG_USE_DLL=1
-
-### Static linking ###
-	CD (path to fsh2png source)
-	SET INCLUDE=%INCLUDE%;(path to libpng on your system)
-	SET LIB=%LIB%;(path to libpng.lib on your system)
-	SET LIB=%LIB%;(path to zlib.lib on your system)
 	NMAKE /F Makefile.msc UNICODE=1
 
-**Warning:** Using libpng16.dll requires that both fsh2png.exe and libpng16.dll
-use the same C runtime library. (MSVCRT.DLL is a common choice.)
+**Warning:** Both `fsh2png.exe` and `libpng16.dll` must use the same C runtime
+library. (`MSVCRT.DLL` is a common choice.)
+
+Building (static linking)
+-------------------------
+
+	$ make static STATIC_LIB=(path to libpng.a and libz.a)
+
+libpng.a and libz.a may already be on your system:
+
+<table>
+	<tr><th>OS</th><th>Path</th><th>Package</th></tr>
+	<tr>
+		<td>Debian (x86-64)</td>
+		<td>/usr/lib/x86_64-linux-gnu</td>
+		<td><a href="https://packages.debian.org/stable/libpng-dev">libpng-dev</a></td>
+	</tr>
+	<tr>
+		<td>OS X (MacPorts)</td>
+		<td>/opt/local/lib</td>
+		<td><a href="https://trac.macports.org/browser/trunk/dports/graphics/libpng/Portfile">libpng</a></td>
+	</tr>
+</table>
+
+`STATIC_LIB=` is ignored on Windows.
 
 Bugs
 ----
@@ -57,6 +71,6 @@ fish; the file format doesn't appear to be documented.
 License
 -------
 
-fsh2png is distributed under the terms of the
+`fsh2png` is distributed under the terms of the
 [ISC License](https://www.isc.org/downloads/software-support-policy/isc-license/);
-see `LICENSE.md`.
+see [`LICENSE.md`](LICENSE.md).

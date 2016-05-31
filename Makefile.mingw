@@ -1,51 +1,30 @@
 CC=gcc
-CFLAGS=-static-libgcc -O2 -Wall
+CFLAGS=-O2 -Wall
 LDLIBS=-lpng
+PREFIX=/usr/local
 
 ifdef UNICODE
-# This requires MinGW-w64.
+# This requires MinGW-w64. MinGW does not support -municode.
 CFLAGS += -D_UNICODE -municode
 endif
 
-# A libpng16.dll like the one in the binary release can be had as follows:
-
-# ./configure CC='gcc -static-libgcc' MAKE=mingw32-make
-# mingw32-make LDFLAGS=-avoid-version
-# mingw32-make install
-# strip /usr/local/bin/libpng16.dll
-
-# This is so that:
-# - It depends on MSVCRT.DLL, just like the stock zlib DLL.
-#   (Use MinGW-w64 -- freely available, or Visual Studio 6 -- from 1998, and
-#    no longer for sale. MinGW-w64 requires the use of mingw32-make.)
-# - It doesn't depend on libgcc_s_dw2-1.dll.
-#   (-static-libgcc -- This has to be in with CC, because libtool will remove
-#    it if it goes in CFLAGS or LDFLAGS; see
-#    <https://www.gnu.org/software/libtool/manual/html_node/Stripped-link-flags.html>.)
-# - It doesn't use that stupid libpng16-16.dll name.
-#   (mingw32-make LDFLAGS=-avoid-version -- This has to be on the command
-#    line for mingw32-make; configure won't accept it, because configure
-#    calls the linker directly instead of going through libtool.)
-# - It doesn't contain debugging information.
-#   (strip /usr/local/bin/libpng16.dll -- mingw32-make install-strip is
-#    broken.)
-
-# MSVCRT.DLL technically should not be used by anything not built by
-# Visual Studio 6 or earlier:
+# MinGW(-w64) builds executables that depend on MSVCRT.DLL, but MSVCRT.DLL
+# technically should not be used by anything not built by Visual Studio 6 or
+# earlier:
 # "Windows is not a Microsoft Visual C/C++ Run-Time delivery channel"
 # https://blogs.msdn.microsoft.com/oldnewthing/20140411-00/?p=1273
 
-# The output from all this should be binary compatible with any other
-# libpng16.dll that depends on MSVCRT.DLL.
-
 all: fsh2png
 
-fsh2png: fsh2png.c
+static: fsh2png-static.exe
+
+fsh2png.exe: fsh2png.c
+
+fsh2png-static.exe: fsh2png.c
+	$(CC) $(CFLAGS) $^ -s -l:libpng.a -l:libz.a -o $@
 
 clean:
-	-rm fsh2png.exe
-
-PREFIX=/usr/local
+	-rm fsh2png.exe fsh2png-static.exe
 
 install: fsh2png.exe
 	cp fsh2png.exe $(PREFIX)/bin

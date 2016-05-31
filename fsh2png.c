@@ -2,7 +2,7 @@
 #	define _CRT_SECURE_NO_WARNINGS 1
 #endif
 
-#include <png.h> /* Requires libpng. */
+#include "png.h" /* Requires libpng. */
 
 #include <ctype.h>
 #include <errno.h>
