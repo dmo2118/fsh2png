@@ -44,7 +44,7 @@ Building (static linking)
 
 	$ make static STATIC_LIB=(path to libpng.a and libz.a)
 
-libpng.a and libz.a may already be on your system:
+`libpng.a` and `libz.a` may already be on your system:
 
 <table>
 	<tr><th>OS</th><th>Path</th><th>Package</th></tr>
