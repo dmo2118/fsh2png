@@ -1,4 +1,4 @@
-CC=gcc
+CC=i686-w64-mingw32-gcc
 CFLAGS=-O2 -Wall
 LDLIBS=-lpng
 PREFIX=/usr/local
@@ -14,7 +14,7 @@ endif
 # "Windows is not a Microsoft Visual C/C++ Run-Time delivery channel"
 # https://blogs.msdn.microsoft.com/oldnewthing/20140411-00/?p=1273
 
-all: fsh2png
+all: fsh2png.exe
 
 static: fsh2png-static.exe
 
@@ -22,6 +22,20 @@ fsh2png.exe: fsh2png.c
 
 fsh2png-static.exe: fsh2png.c
 	$(CC) $(CFLAGS) $^ -s -l:libpng.a -l:libz.a -o $@
+
+TAG=`git tag --contains HEAD`
+NAME=fsh2png-$(TAG)-Win32
+
+release:
+	if [ -z "$(TAG)" ]; then echo "HEAD has no git tag."; exit 1; fi
+	mingw32-make -f $(MAKEFILE_LIST) clean fsh2png-static.exe UNICODE=1
+	mkdir $(NAME)
+	cp fsh2png-static.exe $(NAME)/fsh2png.exe
+	cp README.md LICENSE.md $(NAME)
+	unix2dos $(NAME)/README.md
+	unix2dos $(NAME)/LICENSE.md
+	rm $(NAME).zip
+	zip -rm $(NAME).zip $(NAME)
 
 clean:
 	-rm fsh2png.exe fsh2png-static.exe
