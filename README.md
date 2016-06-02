@@ -7,7 +7,8 @@ Fish! is (c) Tom and Ed's Bogus Software. Shareware versions are still
 available for [16-bit Windows](http://cd.textfiles.com/wingold/GAMES/F1120/)
 and [Mac OS Classic](http://www.macintoshrepository.org/2752-fish-).
 
-Requires [libpng](http://www.libpng.org/pub/png/libpng.html).
+Requires [`libpng`](http://www.libpng.org/pub/png/libpng.html) and 
+[`pkg-config`](https://pkgconfig.freedesktop.org/).
 
 Synopsis
 --------
@@ -42,25 +43,10 @@ library. (`MSVCRT.DLL` is a common choice.)
 Building (static linking)
 -------------------------
 
-	$ make static STATIC_LIB=(path to libpng.a and libz.a)
+	$ make static
 
-`libpng.a` and `libz.a` may already be on your system:
-
-<table>
-	<tr><th>OS</th><th>Path</th><th>Package</th></tr>
-	<tr>
-		<td>Debian (x86-64)</td>
-		<td>/usr/lib/x86_64-linux-gnu</td>
-		<td><a href="https://packages.debian.org/stable/libpng-dev">libpng-dev</a></td>
-	</tr>
-	<tr>
-		<td>OS X (MacPorts)</td>
-		<td>/opt/local/lib</td>
-		<td><a href="https://trac.macports.org/browser/trunk/dports/graphics/libpng/Portfile">libpng</a></td>
-	</tr>
-</table>
-
-`STATIC_LIB=` is ignored on Windows.
+You will need `libpng.a` and `libz.a` on your system; these are not necessarily
+included with operating system-supplied binaries.
 
 Bugs
 ----

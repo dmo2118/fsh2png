@@ -1,6 +1,6 @@
 CC=i686-w64-mingw32-gcc
-CFLAGS=-O2 -Wall
-LDLIBS=-lpng
+CFLAGS=`pkg-config --cflags libpng` -O2 -Wall
+LDLIBS=`pkg-config --libs libpng`
 PREFIX=/usr/local
 
 ifdef UNICODE
@@ -21,7 +21,7 @@ static: fsh2png-static.exe
 fsh2png.exe: fsh2png.c
 
 fsh2png-static.exe: fsh2png.c
-	$(CC) $(CFLAGS) $^ -s -l:libpng.a -l:libz.a -o $@
+	$(CC) $(CFLAGS) $^ -s -static `pkg-config --libs --static libpng` -o $@
 
 TAG=`git tag --contains HEAD`
 NAME=fsh2png-$(TAG)-Win32
