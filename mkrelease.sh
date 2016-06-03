@@ -25,7 +25,7 @@ then
 	E=.exe
 fi
 
-if [ -z "$STATIC_LIB" ]
+if [ -z "$STATIC_LIB" -a "$UNAME" != "Win32" ]
 then
 	echo STATIC_LIB undefined.
 	exit 1

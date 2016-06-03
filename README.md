@@ -48,7 +48,7 @@ Building (static linking)
 You will need `libpng.a` and `libz.a` on your system; these are not necessarily
 included with operating system-supplied binaries.
 
-`STATIC_LIB=` is ignored for Windows builds.
+`STATIC_LIB=` is ignored and can be omitted for Windows builds.
 
 Bugs
 ----
