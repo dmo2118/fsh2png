@@ -43,10 +43,12 @@ library. (`MSVCRT.DLL` is a common choice.)
 Building (static linking)
 -------------------------
 
-	$ make static
+	$ make static STATIC_LIB=(path to libpng.a and libz.a)
 
 You will need `libpng.a` and `libz.a` on your system; these are not necessarily
 included with operating system-supplied binaries.
+
+`STATIC_LIB=` is ignored for Windows builds.
 
 Bugs
 ----

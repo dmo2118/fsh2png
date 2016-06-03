@@ -4,9 +4,6 @@ CFLAGS=`pkg-config --cflags libpng` -O
 LDLIBS=`pkg-config --libs libpng`
 PREFIX=/usr/local
 
-TAG=`git tag --contains HEAD`
-NAME=fsh2png-$(TAG)-`uname -s`
-
 # Cygwin 'make' aliases to 'fsh2png' to 'fsh2png.exe'.
 
 all: fsh2png
@@ -17,17 +14,11 @@ fsh2png: fsh2png.c
 	$(CC) $(CFLAGS) fsh2png.c $(LDLIBS) -o $@
 
 # OS X deprecated -s for ld(1). Go figure.
+# OS X doesn't support -static, so we can't just do -static -lpng, like
+# pkg-config suggests.
 fsh2png-static: fsh2png.c
-	$(CC) $(CFLAGS) fsh2png.c -static `pkg-config --libs --static libpng` -o $@
+	$(CC) $(CFLAGS) fsh2png.c $(STATIC_LIB)/libpng.a $(STATIC_LIB)/libz.a -lm -o $@
 	-strip $@
-
-release: fsh2png-static
-	if [ -z "$(TAG)" ]; then echo "HEAD has no git tag."; exit 1; fi
-	mkdir $(NAME)
-	ln fsh2png-static $(NAME)/fsh2png
-	ln README.md LICENSE.md $(NAME)
-	tar cvzf $(NAME).tar.gz $(NAME)
-	rm -r $(NAME)
 
 clean:
 	-rm fsh2png fsh2png-static
