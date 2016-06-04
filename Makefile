@@ -23,6 +23,9 @@ fsh2png-static: fsh2png.c
 clean:
 	-rm fsh2png fsh2png-static
 
+test: fsh2png
+	./test.sh
+
 install: fsh2png
 	cp fsh2png $(PREFIX)/bin
 

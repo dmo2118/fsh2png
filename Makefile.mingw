@@ -19,12 +19,16 @@ all: fsh2png.exe
 static: fsh2png-static.exe
 
 fsh2png.exe: fsh2png.c
+	$(CC) $(CFLAGS) fsh2png.c $(LDLIBS) -o $@
 
 fsh2png-static.exe: fsh2png.c
 	$(CC) $(CFLAGS) $^ -s -static `pkg-config --libs --static libpng` -o $@
 
 clean:
 	-rm fsh2png.exe fsh2png-static.exe
+
+test: fsh2png.exe
+	./test.sh
 
 install: fsh2png.exe
 	cp fsh2png.exe $(PREFIX)/bin

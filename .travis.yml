@@ -1,0 +1,8 @@
+language: c
+script: make test
+
+addons:
+	apt:
+		packages:
+			- libpng-dev
+			- pkg-config

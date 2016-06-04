@@ -86,7 +86,7 @@ int _tmain(int argc, _TCHAR **argv)
 	_TCHAR *progname = argv[0];
 	if(argc <= 1)
 	{
-		_ftprintf(stderr, _T("Usage: %s fish1.fsh [ fish2.fsh ... ]\n"), progname);
+		_ftprintf(stderr, _T("Usage: %s fish1.fsh [fish2.fsh ...]\n"), progname);
 		return EXIT_SUCCESS;
 	}
 

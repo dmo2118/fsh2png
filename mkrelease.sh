@@ -41,17 +41,17 @@ fi
 
 NAME="fsh2png-$TAG-$UNAME"
 
-$MAKE clean static || exit 1
-mkdir $NAME || exit 1
-$LN fsh2png-static$E "$NAME/fsh2png$E" || exit 1
-$LN README.md LICENSE.md "$NAME" || exit 1
+$MAKE clean static || exit
+mkdir $NAME || exit
+$LN fsh2png-static$E "$NAME/fsh2png$E" || exit
+$LN README.md LICENSE.md "$NAME" || exit
 if [ $UNAME = "Win32" ]
 then
-	(cd "$NAME" && unix2dos README.md LICENSE.md) || exit 1
+	(cd "$NAME" && unix2dos README.md LICENSE.md) || exit
 	rm "$NAME.zip"
-	zip -rm "$NAME.zip" "$NAME" || exit 1
+	zip -rm "$NAME.zip" "$NAME" || exit
 else
-	tar czf "$NAME.tar.gz" "$NAME" || exit 1
+	tar czf "$NAME.tar.gz" "$NAME" || exit
 	rm -r "$NAME"
 fi
 
