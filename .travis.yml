@@ -2,9 +2,9 @@ language: c
 script: make test
 
 addons:
-	apt:
-		packages:
-			- libpng-dev
-			- pkg-config
-			- imagemagick-6.q16
-			# "imagemagick" by itself gets GraphicsMagick, which doesn't have compare.
+    apt:
+        packages:
+            - libpng-dev
+            - pkg-config
+            - imagemagick-6.q16
+            # "imagemagick" by itself gets GraphicsMagick, which doesn't have compare.
