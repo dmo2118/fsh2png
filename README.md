@@ -1,5 +1,4 @@
-fsh2png [![Build
-Status](https://travis-ci.org/dmo2118/fsh2png.svg?branch=master)](https://travis-ci.org/dmo2118/fsh2png)
+fsh2png [![Build Status](https://travis-ci.org/dmo2118/fsh2png.svg?branch=master)](https://travis-ci.org/dmo2118/fsh2png)
 =======
 
 Converts Fish! 3.0 .FSH files to PNG.
